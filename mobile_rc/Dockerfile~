@@ -1,0 +1,7 @@
+FROM tomcat:latest
+
+MAINTAINER h_walbecq
+
+CMD ./build.sh
+
+COPY target/velmys-api.war /usr/local/tomcat/webapps/

@@ -1,0 +1,21 @@
+# This is a sample build configuration for Java (Maven).
+# Check our guides at https://confluence.atlassian.com/x/zd-5Mw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: maven:3.6.1
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - maven
+        script: # Modify the commands below to build your repository.
+           - ./build.sh
+           - pipe: atlassian/scp-deploy:0.3.4
+             variables:
+                USER: 'factory'
+                SERVER: '51.15.208.180'
+                REMOTE_PATH: '/home/factory/velmys_app/api'
+                LOCAL_PATH: 'target/velmys-api.war'
+

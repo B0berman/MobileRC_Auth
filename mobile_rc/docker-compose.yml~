@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: mongo:latest
+    container_name: 'velmys-mongo-container'
+    environment:
+      - MONGO_DB_NAME=velmysDB
+    volumes:
+      - db_data:/data/db
+    restart: always
+
+  velmysapi:
+    depends_on:
+      - db
+    build: ./
+    container_name: 'velmys-api-container'
+    image: velmys-api-img:factory
+    ports:
+      - "4242:8080"
+
+volumes:
+  db_data: {}
